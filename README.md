@@ -1,2 +1,3 @@
 # InstagramDataParser
-version 1
+Predicting the price of an apartment based on apartments from cian.ru
+
