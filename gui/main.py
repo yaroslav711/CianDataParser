@@ -4,6 +4,7 @@ from joblib import load
 import numpy as np
 import pandas as pd
 from xgboost import XGBRegressor
+
 # -*- coding: utf-8 -*-
 
 class Ui_MainWindow(object):
@@ -285,7 +286,9 @@ class Ui_MainWindow(object):
         data = [TimeMetro, NumberOfRooms, ValueArea, LivingArea, Floor, NumberOfFloors, YearOfConstruction, TypeOfHouse,
                 HeightOfCelling, NumberOfBathrooms, TypeOfView]
 
-        metro = pd.read_csv('metros.csv', index_col = False).drop('ind', axis = 1)
+        metro = pd.read_csv('https://raw.githubusercontent.com/yaroslav711/Predict_Price/main/gui/metro.csv', 
+                            index_col = False).drop('ind', axis = 1)
+
         metro = pd.DataFrame({'Name' : metro['Russian name'], 
                       'Line' : metro['Line'],
                       'C1' : metro['Coordinates'],
