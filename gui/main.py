@@ -3,13 +3,12 @@ from PyQt5.QtWidgets import QMessageBox
 from joblib import load
 import numpy as np
 import pandas as pd
-from xgboost import XGBRegressor
 
 # -*- coding: utf-8 -*-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("Predict apartaments price")
+        MainWindow.setObjectName("Predict apartments price")
         MainWindow.resize(900, 500)
         MainWindow.setStyleSheet("background-color: rgb(225,250,252)")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
