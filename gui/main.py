@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from joblib import load
 import numpy as np
 import pandas as pd
+from catboost import CatBoostRegressor
 
 # -*- coding: utf-8 -*-
 
@@ -314,7 +314,9 @@ class Ui_MainWindow(object):
         for x in [0, 2, 3, 4, 5]:
             data[x] = np.log(data[x])
 
-        clf = load('xboost.joblib')
+        clf = CatBoostRegressor()
+        clf.load_model('catboost', format='cbm')
+
         data = np.reshape(data, (1, -1))
 
         pred = str(int(np.round(clf.predict(data))))
