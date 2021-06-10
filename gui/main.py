@@ -294,7 +294,16 @@ class Ui_MainWindow(object):
                       'C2' : metro['Arts & Entertainment'],
                       'N_transfers' : np.ones(264)})
 
-        ind = list(metro['Name']).index(Metro)
+        try:
+            ind = list(metro['Name']).index(Metro)
+        except ValueError:
+            price = QMessageBox()
+            price.setWindowTitle("Ошибка")
+            price.setText('Название метро введено неверно')
+            price.setIcon(QMessageBox.Warning)
+            price.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            price.exec_()
+
         data.append(metro['C1'][ind])
         data.append(metro['C2'][ind])
         data.append(int(metro['Line'][ind]))
@@ -313,6 +322,8 @@ class Ui_MainWindow(object):
 
         for x in [0, 2, 3, 4, 5]:
             data[x] = np.log(data[x])
+
+        print(data)
 
         clf = CatBoostRegressor()
         clf.load_model('catboost', format='cbm')
