@@ -9,7 +9,7 @@ from catboost import CatBoostRegressor
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("Predict apartments price")
-        MainWindow.resize(900, 500)
+        MainWindow.resize(900, 900)
         MainWindow.setStyleSheet("background-color: rgb(225,250,252)")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("")
@@ -208,8 +208,8 @@ class Ui_MainWindow(object):
         self.metro.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.metro.setObjectName("metro")
         self.btn_submit = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_submit.setGeometry(QtCore.QRect(380, 375, 150, 50))
-        self.btn_submit.setStyleSheet("background-color: rgb(255, 150, 150);\n"
+        self.btn_submit.setGeometry(QtCore.QRect(370, 375, 180, 50))
+        self.btn_submit.setStyleSheet("background-color: rgb(25, 150, 150);\n"
                                       "")
         self.btn_submit.setObjectName("btn_submit")
         self.area_2 = QtWidgets.QSpinBox(self.centralwidget)
@@ -261,7 +261,7 @@ class Ui_MainWindow(object):
         self.label_8.setText(_translate("MainWindow", "Высота потолков"))
         self.label_9.setText(_translate("MainWindow", "Ванных"))
         self.label_10.setText(_translate("MainWindow", "Метро"))
-        self.btn_submit.setText(_translate("MainWindow", "Готово"))
+        self.btn_submit.setText(_translate("MainWindow", "Предсказание"))
         self.label_11.setText(_translate("MainWindow", "Жилая площадь"))
 
     def add_func(self):
