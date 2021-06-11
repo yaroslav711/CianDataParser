@@ -285,8 +285,7 @@ class Ui_MainWindow(object):
         data = [TimeMetro, NumberOfRooms, ValueArea, LivingArea, Floor, NumberOfFloors, YearOfConstruction, TypeOfHouse,
                 HeightOfCelling, NumberOfBathrooms, TypeOfView]
 
-        metro = pd.read_csv('https://raw.githubusercontent.com/yaroslav711/Predict_Price/main/gui/metro.csv', 
-                            index_col = False).drop('ind', axis = 1)
+        metro = pd.read_csv('https://raw.githubusercontent.com/yaroslav711/Predict_Price/main/gui/metro.csv', index_col = False).drop('ind', axis = 1)
 
         metro = pd.DataFrame({'Name' : metro['Russian name'], 
                       'Line' : metro['Line'],
@@ -322,8 +321,6 @@ class Ui_MainWindow(object):
 
         for x in [0, 2, 3, 4, 5]:
             data[x] = np.log(data[x])
-
-        print(data)
 
         clf = CatBoostRegressor()
         clf.load_model('catboost', format='cbm')
