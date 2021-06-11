@@ -41,6 +41,15 @@ class Ui_MainWindow(object):
         self.label_2.setFont(font)
         self.label_2.setStyleSheet("")
         self.label_2.setObjectName("label_2")
+
+        self.labe = QtWidgets.QLabel(self.centralwidget)
+        self.labe.setGeometry(QtCore.QRect(320, 490, 300, 40))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.labe.setFont(font)
+        self.labe.setStyleSheet("")
+        self.labe.setObjectName("labe")
+
         self.type_of_view = QtWidgets.QComboBox(self.centralwidget)
         self.type_of_view.setGeometry(QtCore.QRect(355, 90, 200, 30))
         font = QtGui.QFont()
@@ -212,6 +221,13 @@ class Ui_MainWindow(object):
         self.btn_submit.setStyleSheet("background-color: rgb(25, 150, 150);\n"
                                       "")
         self.btn_submit.setObjectName("btn_submit")
+
+        self.btn_submit2 = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_submit2.setGeometry(QtCore.QRect(370, 840, 180, 50))
+        self.btn_submit2.setStyleSheet("background-color: rgb(25, 150, 150);\n"
+                                      "")
+        self.btn_submit2.setObjectName("btn_submit2")
+
         self.area_2 = QtWidgets.QSpinBox(self.centralwidget)
         self.area_2.setGeometry(QtCore.QRect(650, 190, 200, 30))
         font = QtGui.QFont()
@@ -223,6 +239,19 @@ class Ui_MainWindow(object):
         self.area_2.setMaximum(1000)
         self.area_2.setProperty("value", 10)
         self.area_2.setObjectName("area_2")
+
+        self.metro2 = QtWidgets.QSpinBox(self.centralwidget)
+        self.metro2.setGeometry(QtCore.QRect(650, 590, 200, 30))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.metro2.setFont(font)
+        self.metro2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.metro2.setAlignment(QtCore.Qt.AlignCenter)
+        self.metro2.setMinimum(10)
+        self.metro2.setMaximum(1000)
+        self.metro2.setProperty("value", 10)
+        self.metro2.setObjectName("metro2")
+
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
         self.label_11.setGeometry(QtCore.QRect(640, 150, 311, 30))
         font = QtGui.QFont()
@@ -236,6 +265,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         self.add_func()
+        self.add_func_()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -243,6 +273,7 @@ class Ui_MainWindow(object):
         self.type_of_house.setItemText(0, _translate("MainWindow", "Вторичка"))
         self.type_of_house.setItemText(1, _translate("MainWindow", "Новостройка"))
         self.label.setText(_translate("MainWindow", "Тип Жилья"))
+        self.labe.setText(_translate("MainWindow", "Построение графика"))
         self.label_2.setText(_translate("MainWindow", "Вид из окна"))
         self.type_of_view.setItemText(0, _translate("MainWindow", "На улицу"))
         self.type_of_view.setItemText(1, _translate("MainWindow", "Во двор"))
@@ -262,6 +293,7 @@ class Ui_MainWindow(object):
         self.label_9.setText(_translate("MainWindow", "Ванных"))
         self.label_10.setText(_translate("MainWindow", "Метро"))
         self.btn_submit.setText(_translate("MainWindow", "Предсказание"))
+        self.btn_submit2.setText(_translate("MainWindow", "Построить"))
         self.label_11.setText(_translate("MainWindow", "Жилая площадь"))
 
     def add_func(self):
@@ -347,7 +379,22 @@ class Ui_MainWindow(object):
 
         price.exec_()
 
+    def add_func_(self):
+        self.btn_submit2.clicked.connect(self.plot)
 
+    def plot(self):
+        LivingArea = self.area_2.value()
+        TypeOfHouse = self.type_of_house.currentText()
+        TypeOfView = self.type_of_view.currentText()
+        TimeMetro = self.time_metro.value()
+
+        price = QMessageBox()
+        price.setWindowTitle("Цена")
+        price.setText(f'Соси жопу')
+        price.setIcon(QMessageBox.Information)
+        price.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+        price.exec_()
 
 if __name__ == "__main__":
     import sys
