@@ -107,6 +107,26 @@ class Ui_MainWindow(object):
         self.number_of_rooms.addItem("")
         self.number_of_rooms.addItem("")
         self.number_of_rooms.addItem("")
+
+        self.type_of_plot = QtWidgets.QComboBox(self.centralwidget)
+        self.type_of_plot.setGeometry(QtCore.QRect(50, 590, 500, 30))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.type_of_plot.setFont(font)
+        self.type_of_plot.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+                                           "selection-background-color: rgb(232,255,255);\n"
+                                           "selection-color: rgb(0, 0, 0);\n"
+                                           "\n"
+                                           "")
+        self.type_of_plot.setObjectName("type_of_plot")
+        self.type_of_plot.addItem("")
+        self.type_of_plot.addItem("")
+        self.type_of_plot.addItem("")
+        self.type_of_plot.addItem("")
+        self.type_of_plot.addItem("")
+        self.type_of_plot.addItem("")
+        self.type_of_plot.addItem("")
+
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(340, 140, 300, 30))
         font = QtGui.QFont()
@@ -287,6 +307,11 @@ class Ui_MainWindow(object):
         self.number_of_rooms.setItemText(3, _translate("MainWindow", "4 комнаты"))
         self.number_of_rooms.setItemText(4, _translate("MainWindow", "5 комнат"))
         self.number_of_rooms.setItemText(5, _translate("MainWindow", "Многокомнатная "))
+        self.type_of_plot.setItemText(0, _translate("MainWindow", "Зависимость цены от этажа"))
+        self.type_of_plot.setItemText(1, _translate("MainWindow", "Зависимость цены от этажности"))
+        self.type_of_plot.setItemText(2, _translate("MainWindow", "Зависимость цены от года постройки"))
+        self.type_of_plot.setItemText(3, _translate("MainWindow", "Зависимость цены от метро"))
+
         self.label_5.setText(_translate("MainWindow", "Общая площадь"))
         self.label_6.setText(_translate("MainWindow", "Этаж и этажность"))
         self.label_7.setText(_translate("MainWindow", "Год постройки"))
@@ -384,14 +409,14 @@ class Ui_MainWindow(object):
         self.btn_submit2.clicked.connect(self.plot)
 
     def plot(self):
-        LivingArea = self.area_2.value()
+        TypeOfPlot = self.type_of_plot.currentText()
         TypeOfHouse = self.type_of_house.currentText()
         TypeOfView = self.type_of_view.currentText()
         TimeMetro = self.time_metro.value()
 
         price = QMessageBox()
         price.setWindowTitle("Цена")
-        price.setText(f'Соси жопу')
+        price.setText(f'{TypeOfPlot}')
         price.setIcon(QMessageBox.Information)
         price.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
