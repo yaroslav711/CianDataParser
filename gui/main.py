@@ -1,8 +1,15 @@
+import pip
+pip.main(['install', 'catboost'])
+pip.main(['install', 'plotly'])
+pip.main(['install', 'PyQt5'])
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QLabel, QVBoxLayout, QPushButton
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
+import plotly.express as px
+import plotly
 
 # -*- coding: utf-8 -*-
 
@@ -410,17 +417,44 @@ class Ui_MainWindow(object):
 
     def plot(self):
         TypeOfPlot = self.type_of_plot.currentText()
-        TypeOfHouse = self.type_of_house.currentText()
-        TypeOfView = self.type_of_view.currentText()
-        TimeMetro = self.time_metro.value()
 
-        price = QMessageBox()
-        price.setWindowTitle("Цена")
-        price.setText(f'{TypeOfPlot}')
-        price.setIcon(QMessageBox.Information)
-        price.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        df = pd.DataFrame(pd.read_csv('model.csv'))
+        df.dropna(inplace=True)
 
-        price.exec_()
+        if TypeOfPlot == 'Зависимость цены от этажа':
+            df.sort_values('Этаж', inplace=True)
+            fig = px.line(df, x="Этаж", y="Цена", title='Зависимость цены от этажа')
+            html = plotly.io.to_html(fig)
+
+
+
+        elif TypeOfPlot == 'Зависимость цены от этажности':
+            df.sort_values('Этажность дома', inplace=True)
+            fig = px.line(df, x="Этажность дома", y="Цена", title='Зависимость цены от этажности дома')
+            html = plotly.io.to_html(fig)
+
+            plt = QMessageBox()
+            plt.setWindowTitle("Цена")
+            plt.setText(f'Зависимость цены от этажности')
+            plt.setIcon(QMessageBox.Information)
+            plt.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+            plt.exec_()
+
+
+        elif TypeOfPlot == 'Зависимость цены от года постройки':
+            df.sort_values('Этаж', inplace=True)
+
+            plt = QMessageBox()
+            plt.setWindowTitle("Цена")
+            plt.setText(f'Зависимость цены от года постройки')
+            plt.setIcon(QMessageBox.Information)
+            plt.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+            plt.exec_()
+
+
+
 
 if __name__ == "__main__":
     import sys
