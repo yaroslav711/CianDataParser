@@ -1,22 +1,17 @@
-import pip
-pip.main(['install', 'catboost'])
-pip.main(['install', 'plotly'])
-pip.main(['install', 'PyQt5'])
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QLabel, QVBoxLayout, QPushButton
-from PyQt5.QtWebEngineWidgets import QWebEngineView
 import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
-import plotly.express as px
-import plotly
-
+import plotly.offline
+import plotly.graph_objs as go
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui, QtWidgets
+import matplotlib.pyplot as plt
 # -*- coding: utf-8 -*-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("Predict apartments price")
-        MainWindow.resize(900, 900)
+        MainWindow.resize(900, 750)
         MainWindow.setStyleSheet("background-color: rgb(225,250,252)")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("")
@@ -116,7 +111,7 @@ class Ui_MainWindow(object):
         self.number_of_rooms.addItem("")
 
         self.type_of_plot = QtWidgets.QComboBox(self.centralwidget)
-        self.type_of_plot.setGeometry(QtCore.QRect(50, 590, 500, 30))
+        self.type_of_plot.setGeometry(QtCore.QRect(200, 590, 500, 30))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.type_of_plot.setFont(font)
@@ -250,7 +245,7 @@ class Ui_MainWindow(object):
         self.btn_submit.setObjectName("btn_submit")
 
         self.btn_submit2 = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_submit2.setGeometry(QtCore.QRect(370, 840, 180, 50))
+        self.btn_submit2.setGeometry(QtCore.QRect(370, 660, 180, 50))
         self.btn_submit2.setStyleSheet("background-color: rgb(25, 150, 150);\n"
                                       "")
         self.btn_submit2.setObjectName("btn_submit2")
@@ -266,19 +261,6 @@ class Ui_MainWindow(object):
         self.area_2.setMaximum(1000)
         self.area_2.setProperty("value", 10)
         self.area_2.setObjectName("area_2")
-
-        self.metro2 = QtWidgets.QLineEdit(self.centralwidget)
-        self.metro2.setGeometry(QtCore.QRect(650, 590, 200, 30))
-        self.metro2.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.metro2.setObjectName("metro2")
-
-        self.label_10 = QtWidgets.QLabel(self.centralwidget)
-        self.label_10.setGeometry(QtCore.QRect(700, 540, 100, 30))
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        self.label_10.setFont(font)
-        self.label_10.setStyleSheet("")
-        self.label_10.setObjectName("label_10")
 
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
         self.label_11.setGeometry(QtCore.QRect(640, 150, 311, 30))
@@ -317,8 +299,6 @@ class Ui_MainWindow(object):
         self.type_of_plot.setItemText(0, _translate("MainWindow", "Зависимость цены от этажа"))
         self.type_of_plot.setItemText(1, _translate("MainWindow", "Зависимость цены от этажности"))
         self.type_of_plot.setItemText(2, _translate("MainWindow", "Зависимость цены от года постройки"))
-        self.type_of_plot.setItemText(3, _translate("MainWindow", "Зависимость цены от метро"))
-
         self.label_5.setText(_translate("MainWindow", "Общая площадь"))
         self.label_6.setText(_translate("MainWindow", "Этаж и этажность"))
         self.label_7.setText(_translate("MainWindow", "Год постройки"))
@@ -388,7 +368,7 @@ class Ui_MainWindow(object):
             data[x] = np.log(data[x])
 
         clf = CatBoostRegressor()
-        clf.load_model('catboost', format='cbm')
+        clf.load_model('catboost', format='coreml')
 
         data = np.reshape(data, (1, -1))
 
@@ -423,35 +403,70 @@ class Ui_MainWindow(object):
 
         if TypeOfPlot == 'Зависимость цены от этажа':
             df.sort_values('Этаж', inplace=True)
-            fig = px.line(df, x="Этаж", y="Цена", title='Зависимость цены от этажа')
-            html = plotly.io.to_html(fig)
+            fig, ax = plt.subplots()
+            ax.plot(df['Этаж'], df['Цена'])
+            ax.grid()
+            ax.set_xlabel('Этаж')
+            ax.set_ylabel('Цена (млн. руб.)')
+            plt.savefig('fig1.png')
 
-
+            MainWindow.resize(800, 600)
+            self.centralwidget = QtWidgets.QWidget(MainWindow)
+            self.centralwidget.setObjectName("centralwidget")
+            self.widget = QtWidgets.QWidget(self.centralwidget)
+            self.widget.setGeometry(QtCore.QRect(60, 10, 800, 600))
+            self.widget.setObjectName("widget")
+            self.label = QtWidgets.QLabel(self.widget)
+            self.label.setGeometry(QtCore.QRect(20, 0, 800, 600))
+            self.label.setText("")
+            self.label.setObjectName("label")
+            MainWindow.setCentralWidget(self.centralwidget)
+            self.label.setPixmap(QtGui.QPixmap("fig1.png"))
 
         elif TypeOfPlot == 'Зависимость цены от этажности':
             df.sort_values('Этажность дома', inplace=True)
-            fig = px.line(df, x="Этажность дома", y="Цена", title='Зависимость цены от этажности дома')
-            html = plotly.io.to_html(fig)
+            fig, ax = plt.subplots()
+            ax.plot(df['Этажность дома'], df['Цена'])
+            ax.grid()
+            ax.set_xlabel('Этажность дома')
+            ax.set_ylabel('Цена (млн. руб.)')
+            plt.savefig('fig2.png')
 
-            plt = QMessageBox()
-            plt.setWindowTitle("Цена")
-            plt.setText(f'Зависимость цены от этажности')
-            plt.setIcon(QMessageBox.Information)
-            plt.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-
-            plt.exec_()
+            MainWindow.resize(800, 600)
+            self.centralwidget = QtWidgets.QWidget(MainWindow)
+            self.centralwidget.setObjectName("centralwidget")
+            self.widget = QtWidgets.QWidget(self.centralwidget)
+            self.widget.setGeometry(QtCore.QRect(60, 10, 800, 600))
+            self.widget.setObjectName("widget")
+            self.label = QtWidgets.QLabel(self.widget)
+            self.label.setGeometry(QtCore.QRect(20, 0, 800, 600))
+            self.label.setText("")
+            self.label.setObjectName("label")
+            MainWindow.setCentralWidget(self.centralwidget)
+            self.label.setPixmap(QtGui.QPixmap("fig2.png"))
 
 
         elif TypeOfPlot == 'Зависимость цены от года постройки':
-            df.sort_values('Этаж', inplace=True)
+            df.sort_values('Срок сдачи', inplace=True)
+            fig, ax = plt.subplots()
+            ax.plot(df['Срок сдачи'], df['Цена'])
+            ax.grid()
+            ax.set_xlabel('Срок сдачи')
+            ax.set_ylabel('Цена (млн. руб.)')
+            plt.savefig('fig3.png')
 
-            plt = QMessageBox()
-            plt.setWindowTitle("Цена")
-            plt.setText(f'Зависимость цены от года постройки')
-            plt.setIcon(QMessageBox.Information)
-            plt.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-
-            plt.exec_()
+            MainWindow.resize(800, 600)
+            self.centralwidget = QtWidgets.QWidget(MainWindow)
+            self.centralwidget.setObjectName("centralwidget")
+            self.widget = QtWidgets.QWidget(self.centralwidget)
+            self.widget.setGeometry(QtCore.QRect(60, 10, 800, 600))
+            self.widget.setObjectName("widget")
+            self.label = QtWidgets.QLabel(self.widget)
+            self.label.setGeometry(QtCore.QRect(20, 0, 800, 600))
+            self.label.setText("")
+            self.label.setObjectName("label")
+            MainWindow.setCentralWidget(self.centralwidget)
+            self.label.setPixmap(QtGui.QPixmap("fig3.png"))
 
 
 
