@@ -1,8 +1,9 @@
+import pip
+pip.main(['install', 'catboost'])
+pip.main(['install', 'PyQt5'])
 import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
-import plotly.offline
-import plotly.graph_objs as go
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 import matplotlib.pyplot as plt
