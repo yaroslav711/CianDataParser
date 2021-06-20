@@ -1,18 +1,19 @@
-import pip
-pip.main(['install', 'catboost'])
-pip.main(['install', 'PyQt5'])
+# import pip
+# pip.main(['install', 'catboost'])
+# pip.main(['install', 'PyQt5'])
 import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 import matplotlib.pyplot as plt
+from tkinter import *
 # -*- coding: utf-8 -*-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("Predict apartments price")
-        MainWindow.resize(900, 750)
+        MainWindow.resize(900, 850)
         MainWindow.setStyleSheet("background-color: rgb(225,250,252)")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("")
@@ -235,10 +236,13 @@ class Ui_MainWindow(object):
         self.label_10.setFont(font)
         self.label_10.setStyleSheet("")
         self.label_10.setObjectName("label_10")
+        font = QtGui.QFont()
+        font.setPointSize(10)
         self.metro = QtWidgets.QLineEdit(self.centralwidget)
         self.metro.setGeometry(QtCore.QRect(650, 290, 200, 30))
         self.metro.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.metro.setObjectName("metro")
+        self.metro.setFont(font)
         self.btn_submit = QtWidgets.QPushButton(self.centralwidget)
         self.btn_submit.setGeometry(QtCore.QRect(370, 375, 180, 50))
         self.btn_submit.setStyleSheet("background-color: rgb(25, 150, 150);\n"
@@ -250,6 +254,12 @@ class Ui_MainWindow(object):
         self.btn_submit2.setStyleSheet("background-color: rgb(25, 150, 150);\n"
                                       "")
         self.btn_submit2.setObjectName("btn_submit2")
+
+        self.btn_submit3 = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_submit3.setGeometry(QtCore.QRect(300, 750, 330, 50))
+        self.btn_submit3.setStyleSheet("background-color: rgb(25, 150, 150);\n"
+                                      "")
+        self.btn_submit3.setObjectName("btn_submit3")
 
         self.area_2 = QtWidgets.QSpinBox(self.centralwidget)
         self.area_2.setGeometry(QtCore.QRect(650, 190, 200, 30))
@@ -308,13 +318,14 @@ class Ui_MainWindow(object):
         self.label_10.setText(_translate("MainWindow", "Метро"))
         self.btn_submit.setText(_translate("MainWindow", "Предсказание"))
         self.btn_submit2.setText(_translate("MainWindow", "Построить"))
+        self.btn_submit3.setText(_translate("MainWindow", "Таблица зависимости цены метра от станции метро"))
         self.label_11.setText(_translate("MainWindow", "Жилая площадь"))
 
     def add_func(self):
         self.btn_submit.clicked.connect(self.btn_submition)
+        self.btn_submit3.clicked.connect(self.show_table)
 
     def btn_submition(self):
-
         LivingArea = self.area_2.value()
         TypeOfHouse = self.type_of_house.currentText()
         TypeOfView = self.type_of_view.currentText()
@@ -369,7 +380,7 @@ class Ui_MainWindow(object):
             data[x] = np.log(data[x])
 
         clf = CatBoostRegressor()
-        clf.load_model('catboost', format='coreml')
+        clf.load_model('catboost', format='cbm')
 
         data = np.reshape(data, (1, -1))
 
@@ -469,7 +480,14 @@ class Ui_MainWindow(object):
             MainWindow.setCentralWidget(self.centralwidget)
             self.label.setPixmap(QtGui.QPixmap("fig3.png"))
 
+    def show_table(self):
+        data = pd.read_csv('prices.csv', index_col = 0)
+        window = Tk()
+        window.title("Таблица")
+        lbl = Label(window, text=data)
+        lbl.grid(column=0, row=0)
 
+        window.mainloop()
 
 
 if __name__ == "__main__":
