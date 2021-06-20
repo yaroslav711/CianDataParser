@@ -1,16 +1,20 @@
-# import pip
-# pip.main(['install', 'catboost'])
-# pip.main(['install', 'PyQt5'])
+import pip
+
+pip.main(["install", "catboost"])
+pip.main(["install", "PyQt5"])
 import numpy as np
 import pandas as pd
 from catboost import CatBoostRegressor
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QMessageBox
 from PyQt5 import QtCore, QtGui, QtWidgets
 import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+
+
 # -*- coding: utf-8 -*-
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -25,11 +29,13 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.type_of_house.setFont(font)
-        self.type_of_house.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                         "selection-background-color: rgb(232,255,255);\n"
-                                         "selection-color: rgb(0, 0, 0);\n"
-                                         "\n"
-                                         "")
+        self.type_of_house.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n"
+            "selection-background-color: rgb(232,255,255);\n"
+            "selection-color: rgb(0, 0, 0);\n"
+            "\n"
+            ""
+        )
         self.type_of_house.setObjectName("type_of_house")
         self.type_of_house.addItem("")
         self.type_of_house.addItem("")
@@ -61,11 +67,13 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.type_of_view.setFont(font)
-        self.type_of_view.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                        "selection-background-color: rgb(232,255,255);\n"
-                                        "selection-color: rgb(0, 0, 0);\n"
-                                        "\n"
-                                        "")
+        self.type_of_view.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n"
+            "selection-background-color: rgb(232,255,255);\n"
+            "selection-color: rgb(0, 0, 0);\n"
+            "\n"
+            ""
+        )
         self.type_of_view.setObjectName("type_of_view")
         self.type_of_view.addItem("")
         self.type_of_view.addItem("")
@@ -100,11 +108,13 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.number_of_rooms.setFont(font)
-        self.number_of_rooms.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                           "selection-background-color: rgb(232,255,255);\n"
-                                           "selection-color: rgb(0, 0, 0);\n"
-                                           "\n"
-                                           "")
+        self.number_of_rooms.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n"
+            "selection-background-color: rgb(232,255,255);\n"
+            "selection-color: rgb(0, 0, 0);\n"
+            "\n"
+            ""
+        )
         self.number_of_rooms.setObjectName("number_of_rooms")
         self.number_of_rooms.addItem("")
         self.number_of_rooms.addItem("")
@@ -119,11 +129,13 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.type_of_plot.setFont(font)
-        self.type_of_plot.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-                                           "selection-background-color: rgb(232,255,255);\n"
-                                           "selection-color: rgb(0, 0, 0);\n"
-                                           "\n"
-                                           "")
+        self.type_of_plot.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n"
+            "selection-background-color: rgb(232,255,255);\n"
+            "selection-color: rgb(0, 0, 0);\n"
+            "\n"
+            ""
+        )
         self.type_of_plot.setObjectName("type_of_plot")
         self.type_of_plot.addItem("")
         self.type_of_plot.addItem("")
@@ -247,20 +259,17 @@ class Ui_MainWindow(object):
         self.metro.setFont(font)
         self.btn_submit = QtWidgets.QPushButton(self.centralwidget)
         self.btn_submit.setGeometry(QtCore.QRect(370, 375, 180, 50))
-        self.btn_submit.setStyleSheet("background-color: rgb(25, 150, 150);\n"
-                                      "")
+        self.btn_submit.setStyleSheet("background-color: rgb(25, 150, 150);\n" "")
         self.btn_submit.setObjectName("btn_submit")
 
         self.btn_submit2 = QtWidgets.QPushButton(self.centralwidget)
         self.btn_submit2.setGeometry(QtCore.QRect(370, 660, 180, 50))
-        self.btn_submit2.setStyleSheet("background-color: rgb(25, 150, 150);\n"
-                                      "")
+        self.btn_submit2.setStyleSheet("background-color: rgb(25, 150, 150);\n" "")
         self.btn_submit2.setObjectName("btn_submit2")
 
         self.btn_submit3 = QtWidgets.QPushButton(self.centralwidget)
         self.btn_submit3.setGeometry(QtCore.QRect(300, 750, 330, 50))
-        self.btn_submit3.setStyleSheet("background-color: rgb(25, 150, 150);\n"
-                                      "")
+        self.btn_submit3.setStyleSheet("background-color: rgb(25, 150, 150);\n" "")
         self.btn_submit3.setObjectName("btn_submit3")
 
         self.area_2 = QtWidgets.QSpinBox(self.centralwidget)
@@ -292,7 +301,9 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Предсказание цены квартиры в Москве"))
+        MainWindow.setWindowTitle(
+            _translate("MainWindow", "Предсказание цены квартиры в Москве")
+        )
         self.type_of_house.setItemText(0, _translate("MainWindow", "Вторичка"))
         self.type_of_house.setItemText(1, _translate("MainWindow", "Новостройка"))
         self.label.setText(_translate("MainWindow", "Тип Жилья"))
@@ -309,9 +320,15 @@ class Ui_MainWindow(object):
         self.number_of_rooms.setItemText(3, _translate("MainWindow", "4 комнаты"))
         self.number_of_rooms.setItemText(4, _translate("MainWindow", "5 комнат"))
         self.number_of_rooms.setItemText(5, _translate("MainWindow", "Многокомнатная "))
-        self.type_of_plot.setItemText(0, _translate("MainWindow", "Зависимость цены от этажа"))
-        self.type_of_plot.setItemText(1, _translate("MainWindow", "Зависимость цены от этажности"))
-        self.type_of_plot.setItemText(2, _translate("MainWindow", "Зависимость цены от года постройки"))
+        self.type_of_plot.setItemText(
+            0, _translate("MainWindow", "Зависимость цены от этажа")
+        )
+        self.type_of_plot.setItemText(
+            1, _translate("MainWindow", "Зависимость цены от этажности")
+        )
+        self.type_of_plot.setItemText(
+            2, _translate("MainWindow", "Зависимость цены от года постройки")
+        )
         self.label_5.setText(_translate("MainWindow", "Общая площадь"))
         self.label_6.setText(_translate("MainWindow", "Этаж и этажность"))
         self.label_7.setText(_translate("MainWindow", "Год постройки"))
@@ -320,7 +337,9 @@ class Ui_MainWindow(object):
         self.label_10.setText(_translate("MainWindow", "Метро"))
         self.btn_submit.setText(_translate("MainWindow", "Предсказание"))
         self.btn_submit2.setText(_translate("MainWindow", "Построить"))
-        self.btn_submit3.setText(_translate("MainWindow", "Таблица зависимости цены метра от станции метро"))
+        self.btn_submit3.setText(
+            _translate("MainWindow", "Таблица зависимости цены метра от станции метро")
+        )
         self.label_11.setText(_translate("MainWindow", "Жилая площадь"))
 
     def add_func(self):
@@ -341,66 +360,91 @@ class Ui_MainWindow(object):
         HeightOfCelling = self.height_of_ceiling.value()
         NumberOfBathrooms = self.number_of_bathrooms.value()
 
-        data = [TimeMetro, NumberOfRooms, ValueArea, LivingArea, Floor, NumberOfFloors, YearOfConstruction, TypeOfHouse,
-                HeightOfCelling, NumberOfBathrooms, TypeOfView]
+        data = [
+            TimeMetro,
+            NumberOfRooms,
+            ValueArea,
+            LivingArea,
+            Floor,
+            NumberOfFloors,
+            YearOfConstruction,
+            TypeOfHouse,
+            HeightOfCelling,
+            NumberOfBathrooms,
+            TypeOfView,
+        ]
 
-        metro = pd.read_csv('https://raw.githubusercontent.com/yaroslav711/Predict_Price/main/gui/metro.csv', index_col = False).drop('ind', axis = 1)
+        metro = pd.read_csv(
+            "https://raw.githubusercontent.com/yaroslav711/Predict_Price/main/gui/metro.csv",
+            index_col=False,
+        ).drop("ind", axis=1)
 
-        metro = pd.DataFrame({'Name' : metro['Russian name'], 
-                      'Line' : metro['Line'],
-                      'C1' : metro['Coordinates'],
-                      'C2' : metro['Arts & Entertainment'],
-                      'N_transfers' : np.ones(264)})
+        metro = pd.DataFrame(
+            {
+                "Name": metro["Russian name"],
+                "Line": metro["Line"],
+                "C1": metro["Coordinates"],
+                "C2": metro["Arts & Entertainment"],
+                "N_transfers": np.ones(264),
+            }
+        )
 
         try:
-            ind = list(metro['Name']).index(Metro)
+            ind = list(metro["Name"]).index(Metro)
+            data.append(metro["C1"][ind])
+            data.append(metro["C2"][ind])
+            data.append(int(metro["Line"][ind]))
         except ValueError:
             price = QMessageBox()
             price.setWindowTitle("Ошибка")
-            price.setText('Название метро введено неверно')
+            price.setText("Название метро введено неверно")
             price.setIcon(QMessageBox.Warning)
             price.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             price.exec_()
 
-        data.append(metro['C1'][ind])
-        data.append(metro['C2'][ind])
-        data.append(int(metro['Line'][ind]))
+        rooms = [
+            "Студия",
+            "1 комната",
+            "2 комнаты",
+            "3 комнаты",
+            "4 комнаты",
+            "5 комнат",
+            "Многокомнатная ",
+        ]
 
-        rooms = ['Студия', '1 комната', '2 комнаты', '3 комнаты',
-                 '4 комнаты', '5 комнат', 'Многокомнатная ']
+        if rooms.index(data[1]) > 0:
+            data[1] = rooms.index(data[1])
+        else:
+            data[1] = 1
 
-        if rooms.index(data[1]) > 0: data[1] = rooms.index(data[1])
-        else: data[1] = 1
-
-        type = ['Вторичка', 'Новостройка']
+        type = ["Вторичка", "Новостройка"]
         data[7] = type.index(data[7])
 
-        view = ['Во двор', 'На улицу', 'На улицу и двор', 'Нет информации']
+        view = ["Во двор", "На улицу", "На улицу и двор", "Нет информации"]
         data[10] = view.index(data[10])
 
         for x in [0, 2, 3, 4, 5]:
             data[x] = np.log(data[x])
-
         clf = CatBoostRegressor()
-        clf.load_model('catboost', format='cbm')
+        clf.load_model("catboost", format="cbm")
 
         data = np.reshape(data, (1, -1))
 
         pred = str(int(np.round(clf.predict(data))))
         pred = pred[::-1]
 
-        tabs = (len(pred)-1) // 3
-        ost = len(pred) - 3*tabs
+        tabs = (len(pred) - 1) // 3
+        ost = len(pred) - 3 * tabs
         ost = pred[-ost:]
-        st = ''
+        st = ""
         for tab in range(tabs):
-            st += pred[3*tab:3*(tab+1)] + ' '
+            st += pred[3 * tab: 3 * (tab + 1)] + " "
         pred = st + ost
         pred = pred[::-1]
 
         price = QMessageBox()
         price.setWindowTitle("Цена")
-        price.setText(f'Приблизительная цена квартиры:\n   {pred}₽')
+        price.setText(f"Приблизительная цена квартиры:\n   {pred}₽")
         price.setIcon(QMessageBox.Information)
         price.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 
@@ -412,17 +456,17 @@ class Ui_MainWindow(object):
     def plot(self):
         TypeOfPlot = self.type_of_plot.currentText()
 
-        df = pd.DataFrame(pd.read_csv('model.csv'))
+        df = pd.DataFrame(pd.read_csv("model.csv"))
         df.dropna(inplace=True)
 
-        if TypeOfPlot == 'Зависимость цены от этажа':
-            df.sort_values('Этаж', inplace=True)
+        if TypeOfPlot == "Зависимость цены от этажа":
+            df.sort_values("Этаж", inplace=True)
             fig, ax = plt.subplots()
-            ax.plot(df['Этаж'], df['Цена'])
+            ax.plot(df["Этаж"], df["Цена"])
             ax.grid()
-            ax.set_xlabel('Этаж')
-            ax.set_ylabel('Цена (млн. руб.)')
-            plt.savefig('fig1.png')
+            ax.set_xlabel("Этаж")
+            ax.set_ylabel("Цена (млн. руб.)")
+            plt.savefig("fig1.png")
 
             MainWindow.resize(800, 600)
             self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -436,15 +480,14 @@ class Ui_MainWindow(object):
             self.label.setObjectName("label")
             MainWindow.setCentralWidget(self.centralwidget)
             self.label.setPixmap(QtGui.QPixmap("fig1.png"))
-
-        elif TypeOfPlot == 'Зависимость цены от этажности':
-            df.sort_values('Этажность дома', inplace=True)
+        elif TypeOfPlot == "Зависимость цены от этажности":
+            df.sort_values("Этажность дома", inplace=True)
             fig, ax = plt.subplots()
-            ax.plot(df['Этажность дома'], df['Цена'])
+            ax.plot(df["Этажность дома"], df["Цена"])
             ax.grid()
-            ax.set_xlabel('Этажность дома')
-            ax.set_ylabel('Цена (млн. руб.)')
-            plt.savefig('fig2.png')
+            ax.set_xlabel("Этажность дома")
+            ax.set_ylabel("Цена (млн. руб.)")
+            plt.savefig("fig2.png")
 
             MainWindow.resize(800, 600)
             self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -458,16 +501,14 @@ class Ui_MainWindow(object):
             self.label.setObjectName("label")
             MainWindow.setCentralWidget(self.centralwidget)
             self.label.setPixmap(QtGui.QPixmap("fig2.png"))
-
-
-        elif TypeOfPlot == 'Зависимость цены от года постройки':
-            df.sort_values('Срок сдачи', inplace=True)
+        elif TypeOfPlot == "Зависимость цены от года постройки":
+            df.sort_values("Срок сдачи", inplace=True)
             fig, ax = plt.subplots()
-            ax.plot(df['Срок сдачи'], df['Цена'])
+            ax.plot(df["Срок сдачи"], df["Цена"])
             ax.grid()
-            ax.set_xlabel('Срок сдачи')
-            ax.set_ylabel('Цена (млн. руб.)')
-            plt.savefig('fig3.png')
+            ax.set_xlabel("Срок сдачи")
+            ax.set_ylabel("Цена (млн. руб.)")
+            plt.savefig("fig3.png")
 
             MainWindow.resize(800, 600)
             self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -485,10 +526,10 @@ class Ui_MainWindow(object):
     def show_table(self):
         window = Tk()
         window.title("Таблица")
-        window.geometry('1000x560')
-        data = pd.read_csv('prices.csv', index_col = 0)
+        window.geometry("1000x560")
+        data = pd.read_csv("prices.csv", index_col=0)
         frame1 = tk.LabelFrame(window, text="База данных")
-        frame1.place(height=560, width=1000, y=0, x= 0)
+        frame1.place(height=560, width=1000, y=0, x=0)
         tv1 = ttk.Treeview(frame1)
         tv1.place(relheight=1, relwidth=1)
         treescrolly = tk.Scrollbar(frame1, orient="vertical", command=tv1.yview)
@@ -504,7 +545,6 @@ class Ui_MainWindow(object):
             df_rows = data.to_numpy().tolist()
         for row in df_rows:
             tv1.insert("", "end", values=row)
-
         window.mainloop()
 
 
