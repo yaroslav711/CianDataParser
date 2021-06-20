@@ -7,7 +7,9 @@ from catboost import CatBoostRegressor
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 import matplotlib.pyplot as plt
+import tkinter as tk
 from tkinter import *
+from tkinter import ttk
 # -*- coding: utf-8 -*-
 
 class Ui_MainWindow(object):
@@ -481,11 +483,27 @@ class Ui_MainWindow(object):
             self.label.setPixmap(QtGui.QPixmap("fig3.png"))
 
     def show_table(self):
-        data = pd.read_csv('prices.csv', index_col = 0)
         window = Tk()
         window.title("Таблица")
-        lbl = Label(window, text=data)
-        lbl.grid(column=0, row=0)
+        window.geometry('1000x560')
+        data = pd.read_csv('prices.csv', index_col = 0)
+        frame1 = tk.LabelFrame(window, text="База данных")
+        frame1.place(height=560, width=1000, y=0, x= 0)
+        tv1 = ttk.Treeview(frame1)
+        tv1.place(relheight=1, relwidth=1)
+        treescrolly = tk.Scrollbar(frame1, orient="vertical", command=tv1.yview)
+        treescrollx = tk.Scrollbar(frame1, orient="horizontal", command=tv1.xview)
+        tv1.configure(xscrollcommand=treescrollx.set, yscrollcommand=treescrolly.set)
+        treescrollx.pack(side="bottom", fill="x")
+        treescrolly.pack(side="right", fill="y")
+
+        tv1["column"] = list(data.columns)
+        tv1["show"] = "headings"
+        for column in tv1["columns"]:
+            tv1.heading(column, text=column)
+            df_rows = data.to_numpy().tolist()
+        for row in df_rows:
+            tv1.insert("", "end", values=row)
 
         window.mainloop()
 
